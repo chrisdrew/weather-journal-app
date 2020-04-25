@@ -30,17 +30,13 @@ const getLocalInfo = async()=>{
     }
 }
 
-
 const getCityWeather = async (zipCode) =>{
 
     const res = await fetch('https://api.openweathermap.org/data/2.5/weather?zip='+zipCode+',US&appid=' + API_KEY);
 
     try{
         const data = await res.json();
-        console.log(data);
-        if(data.cod === 400 || data.cod === 404){
-            console.log('data');
-            console.log(data);
+        if(data.cod === "400" || data.cod === "404"){
             document.getElementById('alertText').innerHTML = 'Sorry ' + data.message; 
             return
         }else{
@@ -52,7 +48,7 @@ const getCityWeather = async (zipCode) =>{
     } catch (e){
         console.log("error ");
         console.log(e);
-        document.getElementById('alertText').innerHTML = 'Sorry ';
+        document.getElementById('alertText').innerHTML = 'Sorry something went wrong';
         return
     }
 }
