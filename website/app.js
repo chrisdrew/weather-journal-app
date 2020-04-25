@@ -30,13 +30,18 @@ const getLocalInfo = async()=>{
     }
 }
 
+
+
 const getCityWeather = async (zipCode) =>{
 
     const res = await fetch('https://api.openweathermap.org/data/2.5/weather?zip='+zipCode+',US&appid=' + API_KEY);
-
+    console.log('zipCode');
+    console.log(zipCode);
     try{
         const data = await res.json();
-        if(data.cod === "400" || data.cod === "404"){
+        const cod = parseInt(data.cod);
+        if(cod == 400 || cod == 404){
+            alert.classList.remove("d-none");
             document.getElementById('alertText').innerHTML = 'Sorry ' + data.message; 
             return
         }else{
@@ -46,8 +51,8 @@ const getCityWeather = async (zipCode) =>{
             return newEntry
         }
     } catch (e){
-        console.log("error ");
         console.log(e);
+        alert.classList.remove("d-none");
         document.getElementById('alertText').innerHTML = 'Sorry something went wrong';
         return
     }
@@ -103,10 +108,9 @@ const asyncFunction = async () => {
 
 
 document.getElementById('generate').addEventListener('click', function(){
+    alert.classList.add("d-none");
     zip = document.getElementById('zip').value;
     feelings = document.getElementById('feelings').value;
-    console.log('feelings');
-    console.log(feelings);
     
     if(zip && feelings){
         asyncFunction();
