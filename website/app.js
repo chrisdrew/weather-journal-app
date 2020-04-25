@@ -15,6 +15,7 @@ let newEntry = {
 }
 
 let updatedEntry = [];
+let alert = document.getElementById('alert');
 ///////
 /*
     const postData = async ( url = '', data = {})=>{
@@ -81,19 +82,55 @@ const getLocalInfo = async()=>{
     }
 }
 
+
 // GET Weather with Zip Code
+/*
+    const getCityWeather = async (zipCode) =>{
+
+        const res = await fetch('https://api.openweathermap.org/data/2.5/weather?zip='+zipCode+',US&appid=' + API_KEY);
+
+        try{
+            const data = await res.json();
+            console.log(data);
+            if(data.cod === '400' || data.cod === 400){
+                document.getElementById('alertText').innerHTML = 'Sorry ' + data.message; 
+            }else{
+                newEntry.temp = data.main.temp;
+                newEntry.date = newDate;
+                newEntry.feelings = document.getElementById('feelings').value;
+                return newEntry
+            }
+        } catch (e){
+            // console.log("error ");
+            // console.log(e);
+            document.getElementById('alertText').innerHTML = 'Sorry ' + data.message;
+            return
+        }
+    }
+*/
 const getCityWeather = async (zipCode) =>{
+
     const res = await fetch('https://api.openweathermap.org/data/2.5/weather?zip='+zipCode+',US&appid=' + API_KEY);
 
     try{
         const data = await res.json();
-
-        newEntry.temp = data.main.temp;
-        newEntry.date = newDate;
-        newEntry.feelings = document.getElementById('feelings').value;
-        return newEntry
+        console.log(data);
+        if(data.cod === 400 || data.cod === 404){
+            console.log('data');
+            console.log(data);
+            document.getElementById('alertText').innerHTML = 'Sorry ' + data.message; 
+            return
+        }else{
+            newEntry.temp = data.main.temp;
+            newEntry.date = newDate;
+            newEntry.feelings = document.getElementById('feelings').value;
+            return newEntry
+        }
     } catch (e){
-        console.log("error " + e);
+        console.log("error ");
+        console.log(e);
+        document.getElementById('alertText').innerHTML = 'Sorry ';
+        return
     }
 }
 
@@ -138,20 +175,26 @@ const updateForm = async() =>{
 
 
 const asyncFunction = async () => {
-    const promise1Result = await getLocalInfo();
-    const promise2Result = await getCityWeather(zip);
-    const promise3Result = await postCityWeather('/postWeather', newEntry);
-    const promise4Result = await getNewData();
+    await getLocalInfo();
+    await getCityWeather(zip);
+    await postCityWeather('/postWeather', newEntry);
+    await getNewData();
     await updateForm();
   }
 
 
 document.getElementById('generate').addEventListener('click', function(){
     zip = document.getElementById('zip').value;
-    if (zip ==='' || zip === null){
-        return
-    }else{
+    feelings = document.getElementById('feelings').value;
+    console.log('feelings');
+    console.log(feelings);
+    
+    if(zip && feelings){
         asyncFunction();
+    }
+    else{
+        document.getElementById('alertText').innerHTML = 'Sorry you need to fill out the Zipcode and feelings';
+        return
     }
     
 });
