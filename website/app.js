@@ -17,58 +17,6 @@ let newEntry = {
 let updatedEntry = [];
 let alert = document.getElementById('alert');
 ///////
-/*
-    const postData = async ( url = '', data = {})=>{
-        const response = await fetch(url, {
-            method: 'POST', 
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            // Body data type must match "Content-Type" header        
-            body: JSON.stringify(data), 
-        });
-        console.log(response);
-
-        try {
-            const newData = await response.json();
-            return newData;
-        }catch(error) {
-            console.log('error ', error);
-        }
-    }
-*/
-// postData('/postWeather', {zip: 't2v 3w4', feelings: 'sad'});
-
-
-
-
-// 
-/*
-    const getWeatherDemo = async () => {
-        const res = await fetch('/getWeather');
-        console.log(res);
-        try{
-            const data = await res.json();
-            console.log(data);
-        } catch (e){
-            console.log("error " + e);
-        }
-    }
-    function getWeatherApp (city){
-        fetch('https://api.openweathermap.org/data/2.5/weather?q=Calgary&appid=' + API_KEY)
-        .then(function(resp) { return resp.json() }) // Convert data to json
-        .then(function(data) {
-        console.log(data);
-        })
-        .catch(function() {
-        // catch any errors
-        });
-    }
-*/
-// 
-
-
 
 // GET local info
 const getLocalInfo = async()=>{
@@ -83,31 +31,6 @@ const getLocalInfo = async()=>{
 }
 
 
-// GET Weather with Zip Code
-/*
-    const getCityWeather = async (zipCode) =>{
-
-        const res = await fetch('https://api.openweathermap.org/data/2.5/weather?zip='+zipCode+',US&appid=' + API_KEY);
-
-        try{
-            const data = await res.json();
-            console.log(data);
-            if(data.cod === '400' || data.cod === 400){
-                document.getElementById('alertText').innerHTML = 'Sorry ' + data.message; 
-            }else{
-                newEntry.temp = data.main.temp;
-                newEntry.date = newDate;
-                newEntry.feelings = document.getElementById('feelings').value;
-                return newEntry
-            }
-        } catch (e){
-            // console.log("error ");
-            // console.log(e);
-            document.getElementById('alertText').innerHTML = 'Sorry ' + data.message;
-            return
-        }
-    }
-*/
 const getCityWeather = async (zipCode) =>{
 
     const res = await fetch('https://api.openweathermap.org/data/2.5/weather?zip='+zipCode+',US&appid=' + API_KEY);
