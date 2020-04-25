@@ -1,5 +1,9 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+projectData = [
+    {temp: 292.09, date: '3.21.2020', feelings: 'best kind by'},
+    {temp: 292.09, date: '3.21.2020', feelings: 'alright by'}
+];
+console.log(typeof projectData);
 
 // Require Express to run server and routes
 const express = require('express');
@@ -27,13 +31,19 @@ function listening(){
     console.log('server is : ' + port);
 }
 
-app.get('/getGeather', function (req, res){
-    res.send('hello world');
+app.get('/getWeather', function (req, res){
+    console.log('getWeather');
+    console.log(projectData);
     res.send(projectData);
 });
 
 app.post('/postWeather', function (req, res){
-    //projectData.push(req.body);
-    console.log(req.body);
-    // res.send('POST');
+    newEntry = {
+        temp: req.body.temp,
+        date: req.body.date,
+        feelings: req.body.feelings
+    }
+    projectData.push(newEntry);
+    res.send(projectData);
+    console.log(projectData);
 });
