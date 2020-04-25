@@ -149,7 +149,6 @@ const asyncFunction = async () => {
 document.getElementById('generate').addEventListener('click', function(){
     zip = document.getElementById('zip').value;
     if (zip ==='' || zip === null){
-        console.log('fill out the form ya twat!');
         return
     }else{
         asyncFunction();
