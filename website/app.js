@@ -33,7 +33,7 @@ const getLocalInfo = async()=>{
         const data = await res.json();
         return data
     } catch (e){
-        console.log('error ' , e);
+        console.log(e);
     }
 }
 
@@ -43,7 +43,7 @@ const getLocalInfo = async()=>{
 */
 const getCityWeather = async (zipCode) =>{
 
-    const res = await fetch(BASE_URL+zipCode+',US&appid=' + API_KEY);
+    const res = await fetch('https://api.openweathermap.org/data/2.5/weather?q='+zipCode+',US&appid=' + API_KEY);
 
     try{
         const data = await res.json();
@@ -60,7 +60,7 @@ const getCityWeather = async (zipCode) =>{
             return newEntry
         }
     } catch (e){
-        console.log('error ' , e);
+        console.log(e);
         return
     }
 }
@@ -84,7 +84,7 @@ const postCityWeather = async(url='', data)=>{
         const newData = await response.json();
         return newData;
     }catch(error) {
-        console.log('error ', error);
+        console.log(error);
         return
     }
 }
@@ -100,7 +100,7 @@ const getNewData = async () =>{
         updatedEntry = data;
         return updatedEntry
     } catch (e){
-        console.log('error ' , e);
+        console.log(e);
         return
     }
 }
