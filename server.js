@@ -1,7 +1,7 @@
 // Setup empty JS object to act as endpoint for all routes
 projectData = [
-    {temp: 292.09, date: '3.21.2020', feelings: 'best kind by'},
-    {temp: 292.09, date: '3.21.2020', feelings: 'alright by'}
+    {temp: 292.09, city: 'Calgary', date: '3.21.2020', feelings: 'best kind by'},
+    {temp: 292.09, city: 'Calgary', date: '3.21.2020', feelings: 'alright by'}
 ];
 console.log(typeof projectData);
 
@@ -32,7 +32,6 @@ function listening(){
 }
 
 app.get('/getWeather', function (req, res){
-    console.log('getWeather');
     console.log(projectData);
     res.send(projectData);
 });
@@ -40,10 +39,11 @@ app.get('/getWeather', function (req, res){
 app.post('/postWeather', function (req, res){
     newEntry = {
         temp: req.body.temp,
+        city: req.body.city,
         date: req.body.date,
         feelings: req.body.feelings
     }
     projectData.push(newEntry);
-    res.send(projectData);
     console.log(projectData);
+    res.send(projectData);
 });
