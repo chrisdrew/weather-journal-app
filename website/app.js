@@ -22,9 +22,10 @@ let newEntry = {
 }
 
 let updatedEntry = [];
-///////
 
-// GET local info
+/**
+* @description GET local info
+*/
 const getLocalInfo = async()=>{
     const res = await fetch('/getWeather');
 
@@ -32,15 +33,17 @@ const getLocalInfo = async()=>{
         const data = await res.json();
         return data
     } catch (e){
-        console.log('error ' , e);
+        console.log(e);
     }
 }
 
-
-
+/**
+* @description GET local weather from OpenWeatherMap.
+* @param {Number} zipCode - Passes in a zipcode.
+*/
 const getCityWeather = async (zipCode) =>{
 
-    const res = await fetch(BASE_URL+zipCode+',US&appid=' + API_KEY);
+    const res = await fetch('https://api.openweathermap.org/data/2.5/weather?q='+zipCode+',US&appid=' + API_KEY);
 
     try{
         const data = await res.json();
@@ -57,12 +60,16 @@ const getCityWeather = async (zipCode) =>{
             return newEntry
         }
     } catch (e){
-        console.log('error ' , e);
+        console.log(e);
         return
     }
 }
 
-// POST data that was input
+
+/**
+* @description POST the data that was input.
+* @param {Object} data - data is an object that takes temp, city, date, and feelings.
+*/
 const postCityWeather = async(url='', data)=>{
     const response = await fetch(url, {
         method: 'POST', 
@@ -77,12 +84,14 @@ const postCityWeather = async(url='', data)=>{
         const newData = await response.json();
         return newData;
     }catch(error) {
-        console.log('error ', error);
+        console.log(error);
         return
     }
 }
 
-// GET the new data
+/**
+* @description GET the new data.
+*/
 const getNewData = async () =>{
     const res = await fetch('/getWeather');
 
@@ -91,11 +100,14 @@ const getNewData = async () =>{
         updatedEntry = data;
         return updatedEntry
     } catch (e){
-        console.log('error ' , e);
+        console.log(e);
         return
     }
 }
 
+/**
+* @description Update the form
+*/
 const updateForm = async() =>{
     let lastCurrentLog = updatedEntry.length - 1;
     dateElm.innerHTML    = updatedEntry[lastCurrentLog].date;
@@ -104,7 +116,7 @@ const updateForm = async() =>{
     contentElm.innerHTML = updatedEntry[lastCurrentLog].feelings;
 }
 
-
+//Run through each process
 const asyncFunction = async () => {
     await getLocalInfo();
     await getCityWeather(zip);
@@ -113,7 +125,7 @@ const asyncFunction = async () => {
     await updateForm();
   }
 
-
+// Generate button on click
 document.getElementById('generate').addEventListener('click', function(){
     alert.classList.add('d-none');
     zip = document.getElementById('zip').value;
