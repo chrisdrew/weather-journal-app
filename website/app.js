@@ -1,6 +1,6 @@
 /* Global Variables */
-const API_KEY  = 'd533c2e65aa65793bdef4d6bf3eb62f4';
-const BASE_URL = 'api.openweathermap.org/data/2.5/weather?q=';
+const API_KEY  = ',US&appid=d533c2e65aa65793bdef4d6bf3eb62f4&units=imperial';
+const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 
 const dateElm    = document.getElementById('date');
 const cityElm    = document.getElementById('city');
@@ -10,7 +10,7 @@ const alert      = document.getElementById('alert');
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = d.getMonth()+1+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 let zip;
 
@@ -43,7 +43,7 @@ const getLocalInfo = async()=>{
 */
 const getCityWeather = async (zipCode) =>{
 
-    const res = await fetch('https://api.openweathermap.org/data/2.5/weather?q='+zipCode+',US&appid=' + API_KEY);
+    const res = await fetch(BASE_URL + zipCode + API_KEY);
 
     try{
         const data = await res.json();

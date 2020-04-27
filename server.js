@@ -1,9 +1,8 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = [
+const projectData = [
     {temp: 292.09, city: 'Calgary', date: '3.21.2020', feelings: 'best kind by'},
     {temp: 292.09, city: 'Calgary', date: '3.21.2020', feelings: 'alright by'}
 ];
-console.log(typeof projectData);
 
 // Require Express to run server and routes
 const express = require('express');
